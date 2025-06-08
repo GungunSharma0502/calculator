@@ -100,25 +100,35 @@ const styles = `
     box-sizing: border-box;
   }
 
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background-color: #000;
     color: white;
+  }
+
+  #root {
     height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 100vw;
   }
 
   .calculator {
-    width: 100%;
-    max-width: 375px;
-    background-color: #000;
-    padding: 20px;
-    border-radius: 0;
+    width: 100vw;
     height: 100vh;
+    background-color: #000;
     display: flex;
     flex-direction: column;
+    padding: 0;
+    margin: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
   }
 
   .display {
@@ -126,43 +136,46 @@ const styles = `
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 20px;
+    padding: 30px 20px 20px 20px;
     text-align: right;
-    min-height: 200px;
+    background-color: #000;
   }
 
   .expression {
-    font-size: 32px;
+    font-size: 28px;
     color: #666;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     font-weight: 300;
-    min-height: 40px;
+    min-height: 35px;
+    word-wrap: break-word;
   }
 
   .result {
-    font-size: 64px;
+    font-size: 56px;
     font-weight: 300;
     color: white;
     word-wrap: break-word;
-    line-height: 1;
+    line-height: 1.1;
   }
 
   .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 12px;
-    padding: 20px 0;
+    padding: 20px;
+    background-color: #000;
   }
 
   button {
     border: none;
     border-radius: 50%;
-    font-size: 32px;
+    font-size: 30px;
     font-weight: 400;
     cursor: pointer;
     transition: all 0.1s ease;
     aspect-ratio: 1;
-    min-height: 75px;
+    height: calc((100vw - 80px) / 4 - 9px);
+    max-height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -201,71 +214,114 @@ const styles = `
     background-color: #ffb143;
   }
 
-  /* Mobile responsiveness */
-  @media (max-width: 480px) {
-    .calculator {
-      padding: 10px;
-      border-radius: 0;
-    }
-
+  /* Small phones */
+  @media (max-width: 360px) {
     .display {
-      padding: 20px 10px;
-      min-height: 150px;
+      padding: 20px 15px 15px 15px;
     }
 
     .expression {
       font-size: 24px;
+      min-height: 30px;
     }
 
     .result {
       font-size: 48px;
     }
 
-    button {
-      font-size: 28px;
-      min-height: 65px;
-    }
-
     .buttons {
       gap: 8px;
-      padding: 10px 0;
+      padding: 15px;
+    }
+
+    button {
+      font-size: 26px;
+      height: calc((100vw - 64px) / 4 - 6px);
+      max-height: 70px;
     }
   }
 
-  @media (max-width: 320px) {
+  /* Large phones */
+  @media (min-width: 414px) {
     .display {
-      min-height: 120px;
+      padding: 40px 25px 25px 25px;
     }
 
     .expression {
-      font-size: 20px;
+      font-size: 32px;
+      min-height: 40px;
     }
 
     .result {
-      font-size: 40px;
+      font-size: 64px;
+    }
+
+    .buttons {
+      gap: 15px;
+      padding: 25px;
     }
 
     button {
-      font-size: 24px;
-      min-height: 55px;
+      font-size: 34px;
+      height: calc((100vw - 110px) / 4 - 11px);
+      max-height: 90px;
     }
   }
 
-  /* For larger screens */
-  @media (min-width: 481px) {
+  /* Tablets and larger screens */
+  @media (min-width: 768px) {
     .calculator {
       max-width: 400px;
-      height: auto;
+      max-height: 700px;
+      margin: 0 auto;
+      position: relative;
       border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      top: 50%;
+      transform: translateY(-50%);
     }
 
     .display {
-      min-height: 160px;
+      padding: 40px 30px 30px 30px;
+    }
+
+    .expression {
+      font-size: 28px;
+    }
+
+    .result {
+      font-size: 56px;
+    }
+
+    .buttons {
+      padding: 30px;
+      gap: 15px;
     }
 
     button {
-      min-height: 80px;
+      height: 75px;
+      font-size: 32px;
+    }
+  }
+
+  /* Extra large screens */
+  @media (min-width: 1024px) {
+    .calculator {
+      max-width: 450px;
+      max-height: 750px;
+    }
+
+    button {
+      height: 85px;
+      font-size: 36px;
+    }
+
+    .result {
+      font-size: 64px;
+    }
+
+    .expression {
+      font-size: 32px;
     }
   }
 `;
