@@ -193,26 +193,32 @@ const Calculator = () => {
           display: flex;
           flex-direction: column;
           justify-content: flex-end;
-          padding: 30px 20px 20px 20px;
+          padding: 30px 10px 30px 20px;
           text-align: right;
           background-color: #000;
+          overflow: hidden;
         }
 
         .expression {
           font-size: 28px;
           color: #666;
-          margin-bottom: 8px;
+          margin-bottom: 15px;
           font-weight: 300;
           min-height: 35px;
           word-wrap: break-word;
+          word-break: break-all;
+          overflow-wrap: break-word;
           transition: all 0.2s ease;
+          padding-right: 10px;
+          margin-right: 0;
         }
 
         .expression.bold {
           font-weight: 600;
           color: #fff;
-          transform: scale(1.15);
+          transform: scale(1.05);
           font-size: 40px;
+          transform-origin: right center;
         }
 
         .result {
@@ -220,8 +226,12 @@ const Calculator = () => {
           font-weight: 300;
           color: #666;
           word-wrap: break-word;
+          word-break: break-all;
+          overflow-wrap: break-word;
           line-height: 1.1;
           transition: all 0.2s ease;
+          padding-right: 10px;
+          margin-right: 0;
         }
 
         .result.bold {
