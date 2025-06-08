@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 
 const Calculator = () => {
+  const [display, setDisplay] = useState('0');
   const [expression, setExpression] = useState('');
-  const [result, setResult] = useState('');
+  const [isResult, setIsResult] = useState(false);
 
   function formatIndianNumber(num) {
     const number = Number(num);
@@ -29,24 +30,50 @@ const Calculator = () => {
           .replace(/\u00d7/g, '*')
           .replace(/\u00f7/g, '/');
         const evalResult = eval(sanitized);
-        setResult(evalResult);
+        setDisplay(formatIndianNumber(evalResult));
+        setIsResult(true);
       } catch {
-        setResult("Error");
+        setDisplay("Error");
+        setIsResult(true);
       }
     } else if (value === 'AC') {
+      setDisplay('0');
       setExpression('');
-      setResult('');
+      setIsResult(false);
     } else if (value === '⌫') {
-      setExpression(expression.slice(0, -1));
+      if (isResult) {
+        setDisplay('0');
+        setExpression('');
+        setIsResult(false);
+      } else {
+        const newExpression = expression.slice(0, -1);
+        setExpression(newExpression);
+        setDisplay(newExpression ? formatExpressionWithIndianCommas(newExpression) : '0');
+      }
     } else {
-      setExpression(prev => {
-        const lastChar = prev.slice(-1);
+      if (isResult) {
+        // Agar result show ho raha hai aur number press kiya toh new calculation start karo
+        if (!isNaN(value) && value !== '.') {
+          setExpression(value);
+          setDisplay(value);
+          setIsResult(false);
+        } else {
+          // Operator press kiya toh current result ke saath continue karo
+          const newExpression = display.replace(/,/g, '') + value;
+          setExpression(newExpression);
+          setDisplay(formatExpressionWithIndianCommas(newExpression));
+          setIsResult(false);
+        }
+      } else {
+        const lastChar = expression.slice(-1);
         const operators = ['+', '-', '×', '÷', '%'];
         if (operators.includes(lastChar) && operators.includes(value)) {
-          return prev;
+          return; // Don't add consecutive operators
         }
-        return prev + value;
-      });
+        const newExpression = expression + value;
+        setExpression(newExpression);
+        setDisplay(formatExpressionWithIndianCommas(newExpression));
+      }
     }
   };
 
@@ -67,11 +94,8 @@ const Calculator = () => {
   return (
     <div className="calculator">
       <div className="display">
-        <div className="expression">
-          {expression ? formatExpressionWithIndianCommas(expression) : ''}
-        </div>
-        <div className="result">
-          {result === '' ? '0' : isNaN(result) ? result : formatIndianNumber(result)}
+        <div className="main-display">
+          {display}
         </div>
       </div>
 
@@ -141,21 +165,13 @@ const styles = `
     background-color: #000;
   }
 
-  .expression {
-    font-size: 28px;
-    color: #666;
-    margin-bottom: 8px;
-    font-weight: 300;
-    min-height: 35px;
-    word-wrap: break-word;
-  }
-
-  .result {
+  .main-display {
     font-size: 56px;
     font-weight: 300;
     color: white;
     word-wrap: break-word;
     line-height: 1.1;
+    min-height: 60px;
   }
 
   .buttons {
@@ -220,13 +236,9 @@ const styles = `
       padding: 20px 15px 15px 15px;
     }
 
-    .expression {
-      font-size: 24px;
-      min-height: 30px;
-    }
-
-    .result {
+    .main-display {
       font-size: 48px;
+      min-height: 50px;
     }
 
     .buttons {
@@ -247,13 +259,9 @@ const styles = `
       padding: 40px 25px 25px 25px;
     }
 
-    .expression {
-      font-size: 32px;
-      min-height: 40px;
-    }
-
-    .result {
+    .main-display {
       font-size: 64px;
+      min-height: 70px;
     }
 
     .buttons {
@@ -285,11 +293,7 @@ const styles = `
       padding: 40px 30px 30px 30px;
     }
 
-    .expression {
-      font-size: 28px;
-    }
-
-    .result {
+    .main-display {
       font-size: 56px;
     }
 
@@ -316,12 +320,8 @@ const styles = `
       font-size: 36px;
     }
 
-    .result {
+    .main-display {
       font-size: 64px;
-    }
-
-    .expression {
-      font-size: 32px;
     }
   }
 `;
