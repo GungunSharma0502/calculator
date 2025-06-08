@@ -176,6 +176,7 @@ const Calculator = () => {
         .calculator {
           width: 100vw;
           height: 100vh;
+          height: 100dvh; /* Dynamic viewport height for mobile */
           background-color: #000;
           display: flex;
           flex-direction: column;
@@ -186,6 +187,11 @@ const Calculator = () => {
           left: 0;
           right: 0;
           bottom: 0;
+          /* Handle safe areas for devices with notches/home indicators */
+          padding-top: env(safe-area-inset-top);
+          padding-bottom: env(safe-area-inset-bottom);
+          padding-left: env(safe-area-inset-left);
+          padding-right: env(safe-area-inset-right);
         }
 
         .display {
@@ -197,6 +203,7 @@ const Calculator = () => {
           text-align: right;
           background-color: #000;
           overflow: hidden;
+          min-height: 0; /* Allow flex shrinking */
         }
 
         .expression {
@@ -245,7 +252,9 @@ const Calculator = () => {
           grid-template-columns: repeat(4, 1fr);
           gap: 12px;
           padding: 20px;
+          padding-bottom: max(20px, env(safe-area-inset-bottom, 20px)); /* Ensure bottom spacing */
           background-color: #000;
+          flex-shrink: 0; /* Prevent buttons from being compressed */
         }
 
         button {
@@ -258,6 +267,7 @@ const Calculator = () => {
           aspect-ratio: 1;
           height: calc((100vw - 80px) / 4 - 9px);
           max-height: 80px;
+          min-height: 60px; /* Ensure minimum button size */
           display: flex;
           align-items: center;
           justify-content: center;
@@ -318,12 +328,14 @@ const Calculator = () => {
           .buttons {
             gap: 8px;
             padding: 15px;
+            padding-bottom: max(25px, env(safe-area-inset-bottom, 25px));
           }
 
           button {
             font-size: 26px;
             height: calc((100vw - 64px) / 4 - 6px);
             max-height: 70px;
+            min-height: 55px;
           }
         }
 
@@ -349,12 +361,48 @@ const Calculator = () => {
           .buttons {
             gap: 15px;
             padding: 25px;
+            padding-bottom: max(35px, env(safe-area-inset-bottom, 35px));
           }
 
           button {
             font-size: 34px;
             height: calc((100vw - 110px) / 4 - 11px);
             max-height: 90px;
+            min-height: 70px;
+          }
+        }
+
+        /* Extra small screens - emergency fallback */
+        @media (max-height: 600px) {
+          .display {
+            padding: 15px 10px 10px 15px;
+          }
+
+          .expression {
+            font-size: 22px;
+            min-height: 25px;
+            margin-bottom: 10px;
+          }
+
+          .expression.bold {
+            font-size: 30px;
+          }
+
+          .result {
+            font-size: 42px;
+          }
+
+          .buttons {
+            gap: 6px;
+            padding: 12px;
+            padding-bottom: max(22px, env(safe-area-inset-bottom, 22px));
+          }
+
+          button {
+            font-size: 24px;
+            height: calc((100vw - 60px) / 4 - 4px);
+            max-height: 65px;
+            min-height: 50px;
           }
         }
 
@@ -369,6 +417,7 @@ const Calculator = () => {
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             top: 50%;
             transform: translateY(-50%);
+            padding: 0; /* Reset safe area padding for desktop */
           }
 
           .display {
@@ -389,12 +438,14 @@ const Calculator = () => {
 
           .buttons {
             padding: 30px;
+            padding-bottom: 30px; /* Standard padding for desktop */
             gap: 15px;
           }
 
           button {
             height: 75px;
             font-size: 32px;
+            min-height: 75px;
           }
         }
 
@@ -408,6 +459,7 @@ const Calculator = () => {
           button {
             height: 85px;
             font-size: 36px;
+            min-height: 85px;
           }
 
           .result {
