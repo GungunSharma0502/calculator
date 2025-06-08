@@ -211,8 +211,8 @@ const Calculator = () => {
         .expression.bold {
           font-weight: 600;
           color: #fff;
-          transform: scale(1.08);
-          font-size: 32px;
+          transform: scale(1.15);
+          font-size: 40px;
         }
 
         .result {
@@ -298,7 +298,7 @@ const Calculator = () => {
           }
 
           .expression.bold {
-            font-size: 28px;
+            font-size: 34px;
           }
 
           .result {
@@ -329,7 +329,7 @@ const Calculator = () => {
           }
 
           .expression.bold {
-            font-size: 36px;
+            font-size: 44px;
           }
 
           .result {
@@ -370,7 +370,7 @@ const Calculator = () => {
           }
 
           .expression.bold {
-            font-size: 32px;
+            font-size: 38px;
           }
 
           .result {
@@ -409,7 +409,7 @@ const Calculator = () => {
           }
 
           .expression.bold {
-            font-size: 36px;
+            font-size: 42px;
           }
         }
       `}</style>
