@@ -71,9 +71,11 @@ button.equals:active {
 
   .result {
     font-size: 28px;
+   
   }
 
   button {
+    
     font-size: 18px;
     padding: 15px;
   }
