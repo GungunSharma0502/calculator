@@ -211,7 +211,8 @@ const Calculator = () => {
         .expression.bold {
           font-weight: 600;
           color: #fff;
-          transform: scale(1.02);
+          transform: scale(1.08);
+          font-size: 32px;
         }
 
         .result {
@@ -296,6 +297,10 @@ const Calculator = () => {
             min-height: 30px;
           }
 
+          .expression.bold {
+            font-size: 28px;
+          }
+
           .result {
             font-size: 48px;
           }
@@ -321,6 +326,10 @@ const Calculator = () => {
           .expression {
             font-size: 32px;
             min-height: 40px;
+          }
+
+          .expression.bold {
+            font-size: 36px;
           }
 
           .result {
@@ -360,6 +369,10 @@ const Calculator = () => {
             font-size: 28px;
           }
 
+          .expression.bold {
+            font-size: 32px;
+          }
+
           .result {
             font-size: 56px;
           }
@@ -393,6 +406,10 @@ const Calculator = () => {
 
           .expression {
             font-size: 32px;
+          }
+
+          .expression.bold {
+            font-size: 36px;
           }
         }
       `}</style>
